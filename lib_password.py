@@ -117,9 +117,7 @@ def check_password_length(**args):
         True | False
 
     """
-    password = args.get('password', None)
-    if not password:
-        password = get_password_from_stdin(confirm=False)
+    password = args.get('password') or get_password_from_stdin(confirm=False)
     length = args.get('length', 8)
 
     if len(password) <= length:
@@ -166,9 +164,7 @@ def check_password_characters(**args):
     return:
         True | False
     """
-    password = args.get('password', None)
-    if password == None:
-        password = get_password_from_stdin(confirm=False)
+    password = args.get('password') or get_password_from_stdin(confirm=False)
 
     checks = {
         'alphabetical': string.ascii_letters,
@@ -200,9 +196,7 @@ def create_password_hash(**args):
     return:
         hash
     """
-    password = args.get('password', None)
-    if not password:
-        password = get_password_from_stdin(confirm=False)
+    password = args.get('password') or get_password_from_stdin(confirm=False)
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
 
@@ -234,7 +228,7 @@ def check_password(**args):
     return:
         True | False
     """
-    password = args.get('password', None)
+    password = args.get('password') or get_password_from_stdin(confirm=False)
     password_hash = args.get('password_hash', None)
     max_retries = args.get('max_retries', 3)
     retry_time_interval = args.get('retry_time_interval', 2)
