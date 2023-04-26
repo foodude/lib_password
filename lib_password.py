@@ -145,24 +145,29 @@ def check_password_characters(**args):
 
         [alphabetical] <bool>
             Check for alphabetical characters
+            Default: True
 
         [numerical] <bool>
             Check for numerical characters
+            Default: True
 
         [uppercase] <bool>
             Check for uppercase characters
+            Default: True
 
         [lowercase] <bool>
             Check for lowercase characters
+            Default: True
 
         [punctuation] <bool>
             Check for punctuation characters
+            Default: True
 
     return:
         True | False
     """
     password = args.get('password', None)
-    if not password:
+    if password == None:
         password = get_password_from_stdin(confirm=False)
 
     checks = {
@@ -173,7 +178,7 @@ def check_password_characters(**args):
         'punctuation': string.punctuation}
 
     for check, characters in checks.items():
-        if args.get(check, False) is True:
+        if args.get(check, True) is True:
             if not [x for x in password if x in characters]:
                 log.warning(f'Password must contain {check} characters.')
                 return False
