@@ -164,7 +164,6 @@ def check_password_characters(**args):
     password = args.get('password', None)
     if not password:
         password = get_password_from_stdin(confirm=False)
-    check_pwd = True
 
     checks = {
         'alphabetical': string.ascii_letters,
@@ -177,9 +176,9 @@ def check_password_characters(**args):
         if args.get(check, False) is True:
             if not [x for x in password if x in characters]:
                 log.warning(f'Password must contain {check} characters.')
-                check_pwd = False
+                return False
 
-    return check_pwd
+    return True
 
 
 
