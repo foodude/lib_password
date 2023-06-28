@@ -238,7 +238,7 @@ def check_password(**args):
         return False
 
     if args.get('password'):
-        return bcrypt.checkpw(args.password.encode('utf-8'), password_hash)
+        return bcrypt.checkpw(args['password'].encode('utf-8'), password_hash)
 
     for retries in reversed(range(max_retries)):
         if bcrypt.checkpw(
