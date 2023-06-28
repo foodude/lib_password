@@ -228,7 +228,6 @@ def check_password(**args):
     return:
         True | False
     """
-    password = args.get('password') or get_password_from_stdin(confirm=False)
     password_hash = args.get('password_hash', None)
     max_retries = args.get('max_retries', 3)
     retry_time_interval = args.get('retry_time_interval', 2)
@@ -238,7 +237,7 @@ def check_password(**args):
         log.error('arg: [password_hash] is required but missing!')
         return False
 
-    if password:
+    if args.get('password'):
         return bcrypt.checkpw(password.encode('utf-8'), password_hash)
 
     for retries in reversed(range(max_retries)):
